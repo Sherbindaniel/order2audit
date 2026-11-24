@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: order-to-audit
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/Order2Audit}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:YourSuperSecretKeyForJWTTokenSigningMustBeAtLeast256BitsLong!!}
+    expiration-ms: ${JWT_EXPIRATION:86400000}
+    refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION:604800000}
+
+  company:
+    name: ${COMPANY_NAME:Sri Balaji Snacks Pvt Ltd}
+    gstin: ${COMPANY_GSTIN:33AABCS1234A1Z5}
+    address: ${COMPANY_ADDRESS:No. 15, Industrial Estate, Tiruchirappalli}
+    state: ${COMPANY_STATE:Tamil Nadu}
+    state-code: ${COMPANY_STATE_CODE:33}
+    phone: ${COMPANY_PHONE:+91-431-2345678}
+    email: ${COMPANY_EMAIL:accounts@sribalaji.com}
+
+  gst:
+    default-rate: 5.0
+    hsn-code: "2106"
+
+  production:
+    variance-tolerance: 3.0
+
+logging:
+  level:
+    com.orderaudit: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+

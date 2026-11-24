@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: orderaudit-db
+    environment:
+      POSTGRES_DB: Order2Audit
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U orderaudit"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: orderaudit-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/orderaudit
+      DB_USERNAME: orderaudit
+      DB_PASSWORD: orderaudit123
+      JWT_SECRET: ${JWT_SECRET:-ProductionSecretKeyMustBeChangedInProdEnvironment256Bits!!}
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: orderaudit-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    environment:
+      VITE_API_URL: http://localhost:8080/api
+
+volumes:
+  pgdata:
+

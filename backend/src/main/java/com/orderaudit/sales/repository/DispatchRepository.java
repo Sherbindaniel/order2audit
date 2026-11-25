@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface DispatchRepository extends JpaRepository<Dispatch, Long> {
     Optional<Dispatch> findByDispatchNumber(String dispatchNumber);
+    Optional<Dispatch> findByInvoiceId(Long invoiceId);
     List<Dispatch> findByCustomerIdOrderByDispatchDateDesc(Long customerId);
     List<Dispatch> findByDispatchDateBetweenOrderByDispatchDateDesc(LocalDate from, LocalDate to);
     long countByDispatchDate(LocalDate date);

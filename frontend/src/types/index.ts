@@ -110,6 +110,7 @@ export interface Invoice {
   amountPaid: number;
   amountDue: number;
   status: InvoiceStatus;
+  dispatched?: boolean;
   items: InvoiceItem[];
 }
 

@@ -41,5 +41,6 @@ public class InvoiceDto {
     private String companyName;
     private String companyGstin;
     private String companyAddress;
+    private boolean dispatched;
     private List<InvoiceItemDto> items;
 }

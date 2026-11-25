@@ -78,7 +78,7 @@ export const InvoicesList: React.FC = () => {
                     ₹{inv.amountDue?.toLocaleString()}
                   </td>
                   <td>
-                    <div style={{ display: 'flex', gap: '0.375rem' }}>
+                    <div style={{ display: 'flex', gap: '0.375rem', alignItems: 'center' }}>
                       <button
                         onClick={() => handleDownloadPdf(inv.id)}
                         className="btn btn-secondary btn-sm"
@@ -86,13 +86,19 @@ export const InvoicesList: React.FC = () => {
                       >
                         <Download size={14} /> PDF
                       </button>
-                      <button
-                        onClick={() => handleDispatch(inv.id)}
-                        className="btn btn-primary btn-sm"
-                        disabled={dispatching === inv.id}
-                      >
-                        <Send size={14} /> Dispatch
-                      </button>
+                      {inv.dispatched ? (
+                        <span className="badge badge-success" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', padding: '0.35rem 0.6rem' }}>
+                          <Check size={13} /> Dispatched
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleDispatch(inv.id)}
+                          className="btn btn-primary btn-sm"
+                          disabled={dispatching === inv.id}
+                        >
+                          <Send size={14} /> Dispatch
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

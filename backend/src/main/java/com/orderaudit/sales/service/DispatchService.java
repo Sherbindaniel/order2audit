@@ -48,6 +48,10 @@ public class DispatchService {
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice", "id", req.getInvoiceId()));
 
         SalesOrder order = invoice.getSalesOrder();
+        if (order.getStatus() == OrderStatus.DISPATCHED || dispatchRepository.findByInvoiceId(invoice.getId()).isPresent()) {
+            throw new BusinessException("Invoice " + invoice.getInvoiceNumber() + " has already been dispatched");
+        }
+
         User user = userId != null ? userRepository.findById(userId).orElse(null) : null;
         LocalDate today = LocalDate.now();
 

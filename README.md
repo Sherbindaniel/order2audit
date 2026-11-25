@@ -79,7 +79,7 @@ The application provides 5 distinct role experiences with demo accounts:
 
 ## 5. Running the Application
 
-### Option A: Local Development
+### Option A: Local Development (With PostgreSQL)
 
 #### 1. Start PostgreSQL (or use Docker)
 ```bash
@@ -89,25 +89,31 @@ docker-compose up -d postgres
 #### 2. Run Backend (Spring Boot 3.4.1)
 ```bash
 cd backend
-set JAVA_HOME=C:\Program Files\Java\jdk-21.0.12
 mvn spring-boot:run
 ```
-*Backend runs on `http://localhost:8080` with database automatically migrated and seeded with benchmark master data.*
+*Backend runs on `http://localhost:8080` with database automatically migrated via Flyway and seeded with benchmark master data.*
 
-#### 3. Run Frontend (React + Vite)
+### Option B: Zero-Config Standalone Development (No PostgreSQL required)
+```bash
+cd backend
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+*Uses an embedded H2 database in PostgreSQL compatibility mode with file persistence (`./data/orderaudit`). Perfect for rapid development and testing without installing or running a local PostgreSQL service.*
+
+### Running Frontend (React + Vite)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*Frontend runs on `http://localhost:5173`.*
+*Frontend runs on `http://localhost:5173` with proxy configured to `http://localhost:8080`.*
 
-### Option B: Docker Compose (Full Stack)
+### Option C: Docker Compose (Full Stack)
 ```bash
 docker-compose up --build
 ```
 
-### Option C: Run Automated Benchmark Test
+### Option D: Run Automated Benchmark Test
 ```bash
 cd backend
 mvn test -Dtest=BenchmarkIntegrationTest

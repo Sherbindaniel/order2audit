@@ -218,6 +218,9 @@ public class InvoiceService {
                         .build()
         ).collect(Collectors.toList()) : new ArrayList<>();
 
+        boolean isDispatched = inv.getSalesOrder() != null &&
+                inv.getSalesOrder().getStatus() == OrderStatus.DISPATCHED;
+
         return InvoiceDto.builder()
                 .id(inv.getId())
                 .invoiceNumber(inv.getInvoiceNumber())
@@ -244,6 +247,7 @@ public class InvoiceService {
                 .companyName(inv.getCompanyName())
                 .companyGstin(inv.getCompanyGstin())
                 .companyAddress(inv.getCompanyAddress())
+                .dispatched(isDispatched)
                 .items(items)
                 .build();
     }

@@ -159,6 +159,7 @@ export interface Bom {
   expectedOutput: number;
   outputUnit: UnitOfMeasure;
   active: boolean;
+  notes?: string;
   items: BomItem[];
 }
 
@@ -244,4 +245,26 @@ export interface Costing {
   sellingPrice: number;
   grossMargin: number;
   marginPercentage: number;
+}
+
+export interface PurchaseItem {
+  id?: number;
+  inventoryItemId: number;
+  inventoryItemName?: string;
+  quantity: number;
+  unit: UnitOfMeasure;
+  unitPrice: number;
+  totalPrice?: number;
+}
+
+export interface Purchase {
+  id: number;
+  purchaseNumber: string;
+  supplierId?: number;
+  supplierName?: string;
+  purchaseDate: string;
+  totalAmount: number;
+  status: string;
+  notes?: string;
+  items: PurchaseItem[];
 }

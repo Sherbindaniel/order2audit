@@ -13,11 +13,13 @@ import { CreateOrder } from './pages/sales/CreateOrder';
 import { ProductionRuns } from './pages/production/ProductionRuns';
 import { CreateProductionRun } from './pages/production/CreateProductionRun';
 import { BomsList } from './pages/production/BomsList';
+import { CreateBom } from './pages/production/CreateBom';
 import { StockSummary } from './pages/inventory/StockSummary';
 import { InvoicesList } from './pages/invoices/InvoicesList';
 import { PaymentsList } from './pages/payments/PaymentsList';
 import { CostingReport } from './pages/costing/CostingReport';
 import { ReportsCenter } from './pages/reports/ReportsCenter';
+import { PurchasesList } from './pages/purchases/PurchasesList';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
@@ -50,7 +52,7 @@ const RoleBasedRedirect: React.FC = () => {
 export const App: React.FC = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           <Route path="/login" element={<Login />} />
           
@@ -68,9 +70,13 @@ export const App: React.FC = () => {
             <Route path="production" element={<ProductionRuns />} />
             <Route path="production/runs/new" element={<CreateProductionRun />} />
             <Route path="production/boms" element={<BomsList />} />
+            <Route path="production/boms/new" element={<CreateBom />} />
+            <Route path="recipes" element={<BomsList />} />
+            <Route path="recipes/new" element={<CreateBom />} />
 
             <Route path="inventory" element={<StockSummary />} />
             <Route path="inventory/ledger" element={<StockSummary />} />
+            <Route path="purchases" element={<PurchasesList />} />
             <Route path="invoices" element={<InvoicesList />} />
             <Route path="payments" element={<PaymentsList />} />
             <Route path="costing" element={<CostingReport />} />

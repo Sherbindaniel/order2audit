@@ -34,13 +34,13 @@ public class InventoryController {
     }
 
     @PostMapping("/items")
-    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'PRODUCTION_SUPERVISOR')")
     public ResponseEntity<ApiResponse<InventoryItemDto>> createItem(@Valid @RequestBody CreateInventoryItemRequest req) {
         return ResponseEntity.ok(ApiResponse.ok("Item created successfully", inventoryService.createInventoryItem(req)));
     }
 
     @PutMapping("/items/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'PRODUCTION_SUPERVISOR')")
     public ResponseEntity<ApiResponse<InventoryItemDto>> updateItem(@PathVariable Long id, @Valid @RequestBody CreateInventoryItemRequest req) {
         return ResponseEntity.ok(ApiResponse.ok("Item updated successfully", inventoryService.updateInventoryItem(id, req)));
     }
@@ -79,14 +79,14 @@ public class InventoryController {
     }
 
     @PostMapping("/opening-stock")
-    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'PRODUCTION_SUPERVISOR')")
     public ResponseEntity<ApiResponse<Void>> recordOpeningStock(@RequestBody OpeningStockRequest request) {
         inventoryService.recordOpeningStock(request.getItemId(), request.getQuantity(), request.getUnit(), request.getUnitCost(), null);
         return ResponseEntity.ok(ApiResponse.ok("Opening stock recorded", null));
     }
 
     @PostMapping("/opening-stock/product")
-    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'PRODUCTION_SUPERVISOR')")
     public ResponseEntity<ApiResponse<Void>> recordProductOpeningStock(@RequestBody ProductOpeningStockRequest request) {
         inventoryService.recordProductOpeningStock(request.getProductId(), request.getQuantity(), request.getUnitCost(), null);
         return ResponseEntity.ok(ApiResponse.ok("Product opening stock recorded", null));

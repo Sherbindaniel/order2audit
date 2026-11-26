@@ -23,9 +23,14 @@ export const ProductionDashboard: React.FC = () => {
           <h2>Production Floor Intelligence</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Batch tracking, BOM adherence, wastage and yield variance</p>
         </div>
-        <Link to="/production/runs/new" className="btn btn-primary">
-          <PlusCircle size={18} /> Record Production Run
-        </Link>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <Link to="/production/boms/new" className="btn btn-secondary">
+            <PlusCircle size={16} /> New Recipe
+          </Link>
+          <Link to="/production/runs/new" className="btn btn-primary">
+            <PlusCircle size={18} /> Record Production Run
+          </Link>
+        </div>
       </div>
 
       <div className="stat-grid">

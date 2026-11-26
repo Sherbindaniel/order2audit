@@ -24,7 +24,10 @@ export const ProductionRuns: React.FC = () => {
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
           <Link to="/production/boms" className="btn btn-secondary">
-            BOM Master
+            Recipes Master
+          </Link>
+          <Link to="/production/boms/new" className="btn btn-secondary">
+            <PlusCircle size={16} /> New Recipe
           </Link>
           <Link to="/production/runs/new" className="btn btn-primary">
             <PlusCircle size={18} /> Record New Run

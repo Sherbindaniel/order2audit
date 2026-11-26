@@ -33,6 +33,11 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -171,6 +176,8 @@ h4 { font-size: 1.125rem; }
 /* Data Tables */
 .table-container {
   width: 100%;
+  max-width: 100%;
+  display: block;
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);

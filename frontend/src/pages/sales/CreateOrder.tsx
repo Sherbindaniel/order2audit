@@ -333,6 +333,7 @@ export const CreateOrder: React.FC = () => {
                   <label className="form-label" style={{ fontSize: '0.75rem' }}>Quantity (pkts)</label>
                   <input
                     type="number"
+                    step="any"
                     min="1"
                     className="form-input"
                     value={item.quantity}
